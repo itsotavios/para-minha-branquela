@@ -1,0 +1,8 @@
+const openBtn=document.querySelector('#open'),proposal=document.querySelector('#proposal'),cont=document.querySelector('#continue'),question=document.querySelector('#question'),no=document.querySelector('#no'),yes=document.querySelector('#yes'),hint=document.querySelector('#hint'),success=document.querySelector('#success');
+openBtn.onclick=()=>{proposal.classList.add('visible');proposal.scrollIntoView({behavior:'smooth'})};
+cont.onclick=()=>{question.classList.add('visible');question.scrollIntoView({behavior:'smooth'})};
+let n=0;function flee(e){if(e)e.preventDefault();n++;no.style.position='fixed';no.style.left=Math.max(10,Math.random()*(innerWidth-no.offsetWidth-20))+'px';no.style.top=Math.max(10,Math.random()*(innerHeight-no.offsetHeight-20))+'px';hint.textContent=n<3?'opa… tenta de novo 😂':n<6?'acho que esse botão não quer colaborar 👀':'parece que só existe uma resposta 😌❤️'}
+no.addEventListener('mouseenter',flee);no.addEventListener('touchstart',flee,{passive:false});no.onclick=flee;
+yes.onclick=()=>{success.classList.add('show');for(let i=0;i<35;i++)setTimeout(()=>{let h=document.createElement('span');h.className='float';h.textContent=Math.random()>.25?'♥':'♡';h.style.left=Math.random()*100+'vw';h.style.fontSize=(15+Math.random()*30)+'px';document.querySelector('#hearts').appendChild(h);setTimeout(()=>h.remove(),2800)},i*65)};
+document.querySelector('#again').onclick=()=>{success.classList.remove('show');scrollTo({top:0,behavior:'smooth'});no.removeAttribute('style')};
+new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('visible')),{threshold:.15}).observe(question);
